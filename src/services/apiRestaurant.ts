@@ -7,6 +7,28 @@ export interface IPizzaData {
   imageUrl: string;
 }
 
+interface ICartItem {
+  pizzaId: number;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+}
+
+export interface IOrderData {
+  id: string;
+  status: string;
+  customer: string;
+  phone: string;
+  address: string;
+  priority: boolean;
+  estimatedDelivery: string;
+  cart: ICartItem[];
+  position: string;
+  orderPrice: number;
+  priorityPrice: number;
+}
+
 const API_URL = 'https://react-fast-pizza-api.onrender.com/api';
 
 export async function getMenu() {
@@ -24,7 +46,7 @@ export async function getOrder(id: string) {
   if (!res.ok) throw Error(`Couldn't find order #${id}`);
 
   const { data } = await res.json();
-  return data;
+  return data as IOrderData;
 }
 
 export async function createOrder(newOrder) {

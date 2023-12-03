@@ -6,6 +6,7 @@ import './index.css';
 import Home from './ui/Home';
 import Menu from './features/menu/Menu';
 import { loader as loaderMenu } from './features/menu/loader';
+import { loader as loaderOrder } from './features/order/loader';
 import Cart from './features/cart/Cart';
 import Order from './features/order/Order';
 import CreateOrder from './features/order/CreateOrder';
@@ -16,28 +17,34 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     errorElement: <ErrorMessage />,
+    path: '/',
     children: [
       {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/menu',
-        element: <Menu />,
-        loader: loaderMenu,
         errorElement: <ErrorMessage />,
-      },
-      {
-        path: '/cart',
-        element: <Cart />,
-      },
-      {
-        path: '/order/new',
-        element: <CreateOrder />,
-      },
-      {
-        path: '/order/:orederId',
-        element: <Order />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: '/menu',
+            element: <Menu />,
+            loader: loaderMenu,
+          },
+          {
+            path: '/cart',
+            element: <Cart />,
+          },
+          {
+            path: '/order/new',
+            element: <CreateOrder />,
+          },
+          {
+            path: '/order/:orederId',
+            element: <Order />,
+            loader: loaderOrder,
+          },
+        ],
       },
     ],
   },

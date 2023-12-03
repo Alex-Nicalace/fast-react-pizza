@@ -12,7 +12,6 @@ function ErrorMessage() {
     : error instanceof Error
     ? error.message
     : 'Unknown error';
-  console.log(error);
 
   return (
     <div>
