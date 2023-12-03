@@ -49,7 +49,7 @@ export async function getOrder(id: string) {
   return data as IOrderData;
 }
 
-export async function createOrder(newOrder) {
+export async function createOrder(newOrder: IOrderData) {
   try {
     const res = await fetch(`${API_URL}/order`, {
       method: 'POST',
@@ -61,7 +61,7 @@ export async function createOrder(newOrder) {
 
     if (!res.ok) throw Error();
     const { data } = await res.json();
-    return data;
+    return data as IOrderData;
   } catch {
     throw Error('Failed creating your order');
   }

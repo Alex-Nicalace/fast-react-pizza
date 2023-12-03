@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { Form } from 'react-router-dom';
 
 // https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str) =>
+const isValidPhone = (str: string) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str
   );
@@ -38,7 +38,7 @@ function CreateOrder(): JSX.Element {
     <div>
       <h2>Ready to order? Let's go!</h2>
 
-      <form>
+      <Form method="post">
         <div>
           <label>First Name</label>
           <input type="text" name="customer" required />
@@ -70,9 +70,10 @@ function CreateOrder(): JSX.Element {
         </div>
 
         <div>
+          <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <button>Order now</button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
