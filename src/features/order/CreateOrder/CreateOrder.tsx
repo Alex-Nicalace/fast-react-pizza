@@ -1,10 +1,4 @@
-import { Form } from 'react-router-dom';
-
-// https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str: string) =>
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str
-  );
+import { Form, useActionData, useNavigation } from 'react-router-dom';
 
 const fakeCart = [
   {
@@ -32,6 +26,10 @@ const fakeCart = [
 
 function CreateOrder(): JSX.Element {
   // const [withPriority, setWithPriority] = useState(false);
+  const navigation = useNavigation();
+  const { state } = navigation;
+  const isSubmitting = state === 'submitting';
+  const formError = useActionData() as Record<string, string>;
   const cart = fakeCart;
 
   return (
@@ -49,6 +47,7 @@ function CreateOrder(): JSX.Element {
           <div>
             <input type="tel" name="phone" required />
           </div>
+          {formError?.phone && <p>{formError.phone}</p>}
         </div>
 
         <div>
@@ -71,7 +70,9 @@ function CreateOrder(): JSX.Element {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button>Order now</button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? 'Sending ...' : 'Order now'}
+          </button>
         </div>
       </Form>
     </div>
