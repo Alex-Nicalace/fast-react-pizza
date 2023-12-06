@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface ISearchOrderProps {
-  // props
-}
+// interface ISearchOrderProps {}
 
 function SearchOrder(): JSX.Element {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   function handleChangeQuery(e: React.ChangeEvent<HTMLInputElement>) {
@@ -17,7 +15,7 @@ function SearchOrder(): JSX.Element {
     e.preventDefault();
     if (!query) return;
     navigate(`/order/${query}`);
-    setQuery('');
+    setQuery("");
   }
 
   return (
