@@ -6,7 +6,7 @@ import Username from "../features/user/Username";
 
 function Header(): JSX.Element {
   return (
-    <header className="bg-yellow-500 uppercase">
+    <header className="border-b border-stone-500 bg-yellow-500 px-4 py-3 uppercase sm:px-6">
       <Link className="tracking-widest" to="/">
         Fast React Pizza Co.
       </Link>
