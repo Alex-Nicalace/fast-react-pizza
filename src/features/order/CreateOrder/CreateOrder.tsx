@@ -1,23 +1,23 @@
-import { Form, useActionData, useNavigation } from 'react-router-dom';
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 const fakeCart = [
   {
     pizzaId: 12,
-    name: 'Mediterranean',
+    name: "Mediterranean",
     quantity: 2,
     unitPrice: 16,
     totalPrice: 32,
   },
   {
     pizzaId: 6,
-    name: 'Vegetale',
+    name: "Vegetale",
     quantity: 1,
     unitPrice: 13,
     totalPrice: 13,
   },
   {
     pizzaId: 11,
-    name: 'Spinach and Mushroom',
+    name: "Spinach and Mushroom",
     quantity: 1,
     unitPrice: 15,
     totalPrice: 15,
@@ -28,7 +28,7 @@ function CreateOrder(): JSX.Element {
   // const [withPriority, setWithPriority] = useState(false);
   const navigation = useNavigation();
   const { state } = navigation;
-  const isSubmitting = state === 'submitting';
+  const isSubmitting = state === "submitting";
   const formError = useActionData() as Record<string, string>;
   const cart = fakeCart;
 
@@ -70,8 +70,13 @@ function CreateOrder(): JSX.Element {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
-            {isSubmitting ? 'Sending ...' : 'Order now'}
+          <button
+            className="rounded-full bg-yellow-400 px-4 py-3 font-semibold uppercase tracking-wide text-stone-800 
+            transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 
+            focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending ..." : "Order now"}
           </button>
         </div>
       </Form>
