@@ -16,7 +16,7 @@ function MenuItem({ pizza }: IMenuItenProps) {
         alt={name}
         className={`h-24 ${soldOut && "opacity-70 grayscale"}`}
       />
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col pt-0.5">
         <p className="font-semibold">{name}</p>
         <p className="flex-1 text-sm capitalize italic text-stone-500">
           {ingredients.join(", ")}
@@ -29,7 +29,7 @@ function MenuItem({ pizza }: IMenuItenProps) {
               Sold out
             </p>
           )}
-          <Button>Add to cart</Button>
+          <Button mode="small">Add to cart</Button>
         </div>
       </div>
     </li>
