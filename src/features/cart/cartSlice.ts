@@ -64,3 +64,9 @@ export const getSummary = createSelector(
 );
 
 export const getCart = (state: RootStore) => state.cart.cart;
+
+export const getCartItem = (id: number) =>
+  createSelector(
+    (state: RootStore) => state.cart.cart,
+    (cart) => cart.find((item) => item.pizzaId === id),
+  );
