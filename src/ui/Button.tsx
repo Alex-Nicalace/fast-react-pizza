@@ -1,16 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
 import { Link, LinkProps } from "react-router-dom";
-
-type XOR<T extends unknown[], U = T[number]> = T extends [
-  infer Head,
-  ...infer Tail,
-]
-  ?
-      | (Head & {
-          [K in keyof U]?: K extends keyof Head ? Head[K] : never;
-        })
-      | XOR<Tail, U>
-  : never;
+import { XOR } from "../utils/typeUtils";
 
 type ButtonProps = XOR<[ButtonHTMLAttributes<HTMLButtonElement>, LinkProps]> & {
   mode?: "primary" | "small" | "secondary";
