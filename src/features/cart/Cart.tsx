@@ -1,8 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import LinkButton from "../../ui/LinkButton";
 import Button from "../../ui/Button";
 import CartItem from "./CartItem";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../store";
+import { claerCart, getCart } from "./cartSlice";
+import { getName } from "../user/userSlice";
+import EmptyCart from "./EmptyCart";
 
 export interface IItemCartData {
   pizzaId: number;
@@ -12,33 +14,40 @@ export interface IItemCartData {
   totalPrice: number;
 }
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+// const fakeCart = [
+//   {
+//     pizzaId: 12,
+//     name: "Mediterranean",
+//     quantity: 2,
+//     unitPrice: 16,
+//     totalPrice: 32,
+//   },
+//   {
+//     pizzaId: 6,
+//     name: "Vegetale",
+//     quantity: 1,
+//     unitPrice: 13,
+//     totalPrice: 13,
+//   },
+//   {
+//     pizzaId: 11,
+//     name: "Spinach and Mushroom",
+//     quantity: 1,
+//     unitPrice: 15,
+//     totalPrice: 15,
+//   },
+// ];
 
 function Cart(): JSX.Element {
-  const username = useSelector((state: RootStore) => state.user.userName);
-  const cart = fakeCart;
+  const username = useSelector(getName);
+  const cart = useSelector(getCart);
+  const dispatch = useDispatch();
+
+  function handleClearCart() {
+    dispatch(claerCart());
+  }
+
+  if (cart.length === 0) return <EmptyCart />;
 
   return (
     <div className="px-4 py-3">
@@ -54,7 +63,9 @@ function Cart(): JSX.Element {
 
       <div className="mt-6 space-x-2">
         <Button to="/order/new">Order pizzas</Button>
-        <Button mode="secondary">Clear cart</Button>
+        <Button mode="secondary" onClick={handleClearCart}>
+          Clear cart
+        </Button>
       </div>
     </div>
   );

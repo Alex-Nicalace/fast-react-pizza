@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IItemCartData } from "./Cart";
+import { RootStore } from "../../store";
 
 const initialState: { cart: IItemCartData[] } = {
   cart: [],
@@ -45,3 +46,21 @@ export const {
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
+
+// * когда селектор возвращает не примитив необходима мемоизация, иначе будет лишний ререндер
+export const getSummary = createSelector(
+  (state: RootStore) => state.cart.cart,
+  (cart) =>
+    cart.reduce(
+      (total, item) => ({
+        quantity: total.quantity + item.quantity,
+        totalPrice: total.totalPrice + item.totalPrice,
+      }),
+      {
+        quantity: 0,
+        totalPrice: 0,
+      },
+    ),
+);
+
+export const getCart = (state: RootStore) => state.cart.cart;
