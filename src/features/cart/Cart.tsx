@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import LinkButton from "../../ui/LinkButton";
-import Button from "../../ui/Button";
-import CartItem from "./CartItem";
-import { claerCart, getCart } from "./cartSlice";
-import { getName } from "../user/userSlice";
-import EmptyCart from "./EmptyCart";
+import LinkButton from '../../ui/LinkButton';
+import Button from '../../ui/Button';
+import CartItem from './CartItem';
+import { claerCart, getCart } from './cartSlice';
+import { getName } from '../user/userSlice';
+import EmptyCart from './EmptyCart';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 export interface IItemCartData {
   pizzaId: number;
@@ -39,9 +39,9 @@ export interface IItemCartData {
 // ];
 
 function Cart(): JSX.Element {
-  const username = useSelector(getName);
-  const cart = useSelector(getCart);
-  const dispatch = useDispatch();
+  const username = useAppSelector(getName);
+  const cart = useAppSelector(getCart);
+  const dispatch = useAppDispatch();
 
   function handleClearCart() {
     dispatch(claerCart());
@@ -50,20 +50,20 @@ function Cart(): JSX.Element {
   if (cart.length === 0) return <EmptyCart />;
 
   return (
-    <div className="px-4 py-3">
-      <LinkButton to="/menu">&larr; Back to menu</LinkButton>
+    <div className='px-4 py-3'>
+      <LinkButton to='/menu'>&larr; Back to menu</LinkButton>
 
-      <h2 className="mt-7 text-xl font-semibold">Your cart, {username}</h2>
+      <h2 className='mt-7 text-xl font-semibold'>Your cart, {username}</h2>
 
-      <ul className="mt-3 divide-y divide-stone-200 border-b ">
+      <ul className='mt-3 divide-y divide-stone-200 border-b '>
         {cart.map((item) => (
           <CartItem key={item.pizzaId} item={item} />
         ))}
       </ul>
 
-      <div className="mt-6 space-x-2">
-        <Button to="/order/new">Order pizzas</Button>
-        <Button mode="secondary" onClick={handleClearCart}>
+      <div className='mt-6 space-x-2'>
+        <Button to='/order/new'>Order pizzas</Button>
+        <Button mode='secondary' onClick={handleClearCart}>
           Clear cart
         </Button>
       </div>

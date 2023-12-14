@@ -1,8 +1,8 @@
 import { ActionFunctionArgs, redirect } from 'react-router-dom';
-import { IOrderData, createOrder } from '../../../services/apiRestaurant';
-import { isValidPhone } from '../../../utils/helpers';
-import store from '../../../store';
-import { claerCart } from '../../cart/cartSlice';
+import { IOrderData, createOrder } from '../../services/apiRestaurant';
+import { isValidPhone } from '../../utils/helpers';
+import store from '../../store';
+import { claerCart } from '../cart/cartSlice';
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();

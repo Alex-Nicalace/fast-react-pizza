@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { IPizzaData } from '../../services/apiRestaurant';
 import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
 import { addItem, getCartItem } from '../cart/cartSlice';
 import DeleteItem from '../cart/DeleteItem';
 import UpdateItemQuantity from '../cart/UpdateItemQuantity';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 interface IMenuItenProps {
   pizza: IPizzaData;
@@ -12,8 +12,8 @@ interface IMenuItenProps {
 
 function MenuItem({ pizza }: IMenuItenProps) {
   const { name, unitPrice, ingredients, soldOut, imageUrl, id } = pizza;
-  const dispatch = useDispatch();
-  const currentQuantity = useSelector(getCartItem(id))?.quantity || 0;
+  const dispatch = useAppDispatch();
+  const currentQuantity = useAppSelector(getCartItem(id))?.quantity || 0;
   const isInCart = currentQuantity > 0;
 
   function handleAddToCart() {

@@ -1,17 +1,16 @@
 // interface IUsernameProps {}
 
-import { useSelector } from "react-redux";
-import { RootStore } from "../../store";
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 function Username(): JSX.Element {
-  const userName = useSelector((state: RootStore) => state.user.userName);
+  const userName = useAppSelector((state) => state.user.userName);
 
   if (!userName) {
     return <></>;
   }
 
   return (
-    <div className="hidden text-sm font-semibold md:block">{userName}</div>
+    <div className='hidden text-sm font-semibold md:block'>{userName}</div>
   );
 }
 
