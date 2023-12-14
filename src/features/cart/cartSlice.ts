@@ -1,13 +1,13 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IItemCartData } from "./Cart";
-import { RootStore } from "../../store";
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IItemCartData } from './Cart';
+import { RootStore } from '../../store';
 
 const initialState: { cart: IItemCartData[] } = {
   cart: [],
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addItem(state, action: PayloadAction<IItemCartData>) {
@@ -30,6 +30,10 @@ const cartSlice = createSlice({
       if (!item) return;
       item.quantity--;
       item.totalPrice = item.unitPrice * item.quantity;
+      if (item.quantity === 0) {
+        // * можно воспользоваться логикой удаления
+        cartSlice.caseReducers.deleteItem(state, action);
+      }
     },
     claerCart(state) {
       state.cart = [];
