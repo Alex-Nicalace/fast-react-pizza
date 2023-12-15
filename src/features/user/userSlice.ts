@@ -6,8 +6,8 @@ const initialState = {
   userName: '',
   status: 'idle',
   position: {
-    latitude: Infinity,
-    longitude: Infinity,
+    latitude: 0,
+    longitude: 0,
   },
   address: '',
   error: '',
@@ -74,3 +74,5 @@ export const { updateName } = userSlice.actions;
 export default userSlice.reducer;
 
 export const getName = (state: RootStore) => state.user.userName;
+
+export const getUser = (state: RootStore) => state.user;
