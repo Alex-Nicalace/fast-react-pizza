@@ -6,9 +6,14 @@ import {
   formatCurrency,
   formatDate,
 } from '../../utils/helpers';
-import { IOrderData, IPizzaData } from '../../services/apiRestaurant';
+import {
+  IOrderData,
+  IPizzaData,
+  updateOrder,
+} from '../../services/apiRestaurant';
 import OrderItem from './OrderItem';
 import { useEffect } from 'react';
+import UpdateOrder from './UpdateOrder';
 
 function Order(): JSX.Element {
   const order = useLoaderData() as IOrderData;
@@ -24,7 +29,7 @@ function Order(): JSX.Element {
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
   const fetcher = useFetcher<IPizzaData[]>();
 
-  // * получение данных из маршрута меню
+  // * получение данных из маршрута меню без навигации
   useEffect(
     function () {
       if (!fetcher.data && fetcher.state === 'idle') {
@@ -89,6 +94,8 @@ function Order(): JSX.Element {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }
