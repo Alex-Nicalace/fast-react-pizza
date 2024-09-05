@@ -6,11 +6,7 @@ import {
   formatCurrency,
   formatDate,
 } from '../../utils/helpers';
-import {
-  IOrderData,
-  IPizzaData,
-  updateOrder,
-} from '../../services/apiRestaurant';
+import { IOrderData, IPizzaData } from '../../services/apiRestaurant';
 import OrderItem from './OrderItem';
 import { useEffect } from 'react';
 import UpdateOrder from './UpdateOrder';

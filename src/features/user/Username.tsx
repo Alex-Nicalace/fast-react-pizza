@@ -1,9 +1,11 @@
 // interface IUsernameProps {}
 
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { getName } from './userSlice';
 
 function Username(): JSX.Element {
-  const userName = useAppSelector((state) => state.user.userName);
+  // getName - селектор
+  const userName = useAppSelector(getName);
 
   if (!userName) {
     return <></>;

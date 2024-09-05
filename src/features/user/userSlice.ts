@@ -22,8 +22,11 @@ function getPosition() {
   });
 }
 
+// создание асинхронного редьюсера
 export const fetchAddress = createAsyncThunk(
+  // тип действия 👇
   'user/fetchAddress',
+  // асинхронная функция 👇
   async function () {
     // 1) We get the user's geolocation position
     const positionObj = await getPosition();
@@ -44,14 +47,23 @@ export const fetchAddress = createAsyncThunk(
   },
 );
 
+// создание фрагмента глобольного состояния
 const userSlice = createSlice({
-  name: 'user',
+  name: 'user', // имя фрагмента
   initialState,
   reducers: {
+    // редьюсер ничего не возвращать. фишка Redux Toolkit
+    // ! измененмя надо вносить проямо в !!state!!
     updateName(state, action: PayloadAction<string>) {
       state.userName = action.payload;
+      // редьюсер ничего не возвращать. фишка Redux Toolkit
     },
   },
+  /**
+   * extraReducers - это метод, который позволяет
+   * добавлять редюсеры, которые будут обрабатывать
+   * асинхронные действия.
+   */
   extraReducers: (builder) => {
     builder
       .addCase(fetchAddress.pending, (state) => {
@@ -69,10 +81,12 @@ const userSlice = createSlice({
   },
 });
 
+// экспорт action creator
 export const { updateName } = userSlice.actions;
 
+// экспорт редьюсера
 export default userSlice.reducer;
 
+// экспорт селекторов
 export const getName = (state: RootStore) => state.user.userName;
-
 export const getUser = (state: RootStore) => state.user;

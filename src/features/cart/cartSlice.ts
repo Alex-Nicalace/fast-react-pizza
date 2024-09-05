@@ -6,10 +6,13 @@ const initialState: { cart: IItemCartData[] } = {
   cart: [],
 };
 
+// создание фрагмента глобольного состояния
 const cartSlice = createSlice({
-  name: 'cart',
+  name: 'cart', // имя фрагмента
   initialState,
   reducers: {
+    // редьюсер ничего не возвращать. фишка Redux Toolkit
+    // ! измененмя надо вносить проямо в !!state!!
     addItem(state, action: PayloadAction<IItemCartData>) {
       state.cart.push(action.payload);
     },
@@ -41,6 +44,7 @@ const cartSlice = createSlice({
   },
 });
 
+// экспорт action creator
 export const {
   addItem,
   deleteItem,
@@ -49,8 +53,10 @@ export const {
   claerCart,
 } = cartSlice.actions;
 
+// экспорт редьюсера
 export default cartSlice.reducer;
 
+// экспорт селекторов
 // * когда селектор возвращает не примитив необходима мемоизация, иначе будет лишний ререндер
 export const getSummary = createSelector(
   (state: RootStore) => state.cart.cart,
@@ -66,9 +72,7 @@ export const getSummary = createSelector(
       },
     ),
 );
-
 export const getCart = (state: RootStore) => state.cart.cart;
-
 export const getCartItem = (id: number) =>
   createSelector(
     (state: RootStore) => state.cart.cart,

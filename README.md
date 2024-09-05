@@ -1,27 +1,43 @@
-# React + TypeScript + Vite
+# О проекте
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Redux Toolkit
 
-Currently, two official plugins are available:
+## Термины
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Slice
 
-## Expanding the ESLint configuration
+**_slice_** — это концепция, которая представляет собой часть состояния и логику обработки этого состояния (редюсеры и действия). С помощью `createSlice()` можно упростить создание редюсеров и действий для управления конкретным разделом состояния в приложении.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Каждый "slice" включает в себя:
 
-- Configure the top-level `parserOptions` property like this:
+1. **Имя slice** — ключ, под которым хранится состояние в общем дереве состояния Redux.
+2. **Начальное состояние** — начальное состояние конкретного раздела состояния.
+3. **Reducers (редьюсеры)** — функции, которые описывают, как состояние должно изменяться в ответ на различные действия.
+4. **Actions (действия)** — автоматически сгенерированные функции, которые можно использовать для изменения состояния с помощью соответствующего редьюсера.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### редьюсер
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**_редьюсер_** — это функция, которая принимает два аргумента:
+
+1. **state** (текущее состояние),
+2. **action** (действие, описывающее изменение),
+
+и возвращает **новое состояние**.
+
+В классическом Redux редьюсер всегда должен быть чистой функцией!
+
+в _Redux Toolkit_ редьюсер может **ничего не возвращать**, так как используется библиотека **Immer**. Она позволяет изменять состояние напрямую (внутри редьюсера), а под капотом Immer создаёт **новую версию состояния** на основе изменений.
+
+### Action creator
+
+**Action creator** — это функция, которая создаёт и возвращает объект действия (_action_). В Redux Toolkit, `createSlice` автоматически генерирует action creators на основе редьюсеров, определённых в слайсе.
+
+### action
+
+**Action (действие)** в Redux — это обычный объект, который содержит информацию о том, что должно произойти с состоянием приложения. Каждый action должен как минимум содержать поле `type`, которое описывает тип действия, и может содержать дополнительные данные в поле `payload`.
+
+### Селектор
+
+**_Селектор_** — это функция, которая принимает состояние _Redux_ в качестве аргумента и возвращает определённую часть этого состояния или производное значение.
+
+Селекторы позволяют удобно извлекать данные из глобального состояния, обеспечивая изоляцию логики доступа к данным от компонентов.
